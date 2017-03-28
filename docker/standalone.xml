@@ -138,11 +138,13 @@
         <subsystem xmlns="urn:jboss:domain:datasources:4.0">
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/HydroDS" pool-name="HydroDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://localhost:3306/usr_hydro?autoReconnect=true</connection-url>
+                    <connection-url>
+                        jdbc:mysql://${env.OPENSHIFT_MYSQL_HOST}:${env.OPENSHIFT_MYSQL_PORT}/${env.OPENSHIFT_MYSQL_DB}?autoReconnect=true
+                    </connection-url>
                     <driver>mysql</driver>
                     <security>
-                        <user-name>usr_hydro</user-name>
-                        <password>PnvuNTzTffp7RttC</password>
+                        <user-name>${env.OPENSHIFT_MYSQL_USER}</user-name>
+                        <password>${env.OPENSHIFT_MYSQL_PASSWORD}</password>
                     </security>
                 </datasource>
                 <drivers>
@@ -174,7 +176,7 @@
                                                         context-service="default" hung-task-threshold="60000" keepalive-time="3000"/>
                 </managed-scheduled-executor-services>
             </concurrent>
-            <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/ExampleDS"
+            <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/HydroDS"
                               managed-executor-service="java:jboss/ee/concurrency/executor/default"
                               managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default"
                               managed-thread-factory="java:jboss/ee/concurrency/factory/default"/>
