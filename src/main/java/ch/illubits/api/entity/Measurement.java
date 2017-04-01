@@ -2,11 +2,15 @@ package ch.illubits.api.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 public class Measurement {
 
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -14,10 +18,10 @@ public class Measurement {
     private Station station;
 
     @Column(name = "measure_time")
-    private LocalDate measureTime;
+    private LocalDateTime measureTime;
 
     @Column(name = "insert_time")
-    private LocalDate insertTime;
+    private LocalDateTime insertTime;
 
     @ManyToOne
     @JoinColumn(name = "unit_Id")
@@ -56,19 +60,19 @@ public class Measurement {
         this.station = station;
     }
 
-    public LocalDate getMeasureTime() {
+    public LocalDateTime getMeasureTime() {
         return measureTime;
     }
 
-    public void setMeasureTime(LocalDate measureTime) {
+    public void setMeasureTime(LocalDateTime measureTime) {
         this.measureTime = measureTime;
     }
 
-    public LocalDate getInsertTime() {
+    public LocalDateTime getInsertTime() {
         return insertTime;
     }
 
-    public void setInsertTime(LocalDate insertTime) {
+    public void setInsertTime(LocalDateTime insertTime) {
         this.insertTime = insertTime;
     }
 

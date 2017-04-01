@@ -30,6 +30,14 @@ public abstract class BaseRepository<T> {
         return (Session) entityManager.getDelegate();
     }
 
+    public void flush() {
+        this.entityManager.flush();
+    }
+
+    public T getReference(Long id) {
+        return entityManager.getReference(entityType, id);
+    }
+
     /**
      * Creates an entity on the database. The object is updated with the ID that it is created with.
      *
@@ -115,7 +123,7 @@ public abstract class BaseRepository<T> {
      * @param id The ID of the entity to look for
      * @return The entity from the database or null if it was not found
      */
-    public T find(long id) {
+    public T find(Object id) {
         T entity = entityManager.find(entityType, id);
         return entity;
     }
@@ -165,6 +173,18 @@ public abstract class BaseRepository<T> {
     protected List<T> resultList(TypedQuery<T> query) {
         List<T> entityList = query.getResultList();
         return entityList;
+    }
+
+    public int executeNativeQuery(String query) {
+        return executeNativeQuery(query, null);
+    }
+
+    public int executeNativeQuery(String query, Map<String, Object> params) {
+        Query nativeQuery = entityManager.createNativeQuery(query);
+        if (params != null) {
+            params.forEach(nativeQuery::setParameter);
+        }
+        return nativeQuery.executeUpdate();
     }
 
     /**
