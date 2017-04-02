@@ -139,7 +139,7 @@
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/HydroDS" pool-name="HydroDS" enabled="true" use-java-context="true">
                     <connection-url>
-                        jdbc:mysql://${env.OPENSHIFT_MYSQL_HOST}:${env.OPENSHIFT_MYSQL_PORT}/${env.OPENSHIFT_MYSQL_DB}?autoReconnect=true
+                        jdbc:mysql://${env.OPENSHIFT_MYSQL_HOST}:${env.OPENSHIFT_MYSQL_PORT}/${env.OPENSHIFT_MYSQL_DB}?autoReconnect=true&amp;useSSL=false
                     </connection-url>
                     <driver>mysql</driver>
                     <security>
