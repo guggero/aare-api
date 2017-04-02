@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBException;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -50,14 +51,19 @@ public class CollectorService {
 
     @PostConstruct
     @Schedule(hour = "*", minute = "1,11,21,31,41,51")
-    public void collect() throws Exception {
+    public void collect() {
         String stationList = configRepository.find("station.include.list").getValue();
         List<Station> stations = stationRepository.getStations(asList(stationList.split(",")));
 
         LOGGER.info("Loaded {} stations from the database", stations.size());
 
         List<Measurement> measurements = new ArrayList<>();
-        parseXML(stations, measurements);
+
+        try {
+            parseXML(stations, measurements);
+        } catch (Exception e) {
+            throw new EJBException(e);
+        }
 
         LOGGER.info("Loaded {} new measurements", measurements.size());
         measurements.forEach(m -> {
