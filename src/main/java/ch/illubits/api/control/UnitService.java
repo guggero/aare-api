@@ -33,7 +33,7 @@ public class UnitService {
     private UnitRepository unitRepository;
 
     @PostConstruct
-    @Schedule(hour = "*", minute="*/5")
+    @Schedule(hour = "*", minute = "*/5")
     public void initCache() {
         synchronized (UNIT_CACHE) {
             CACHED_UNITS.forEach(unitKey -> {

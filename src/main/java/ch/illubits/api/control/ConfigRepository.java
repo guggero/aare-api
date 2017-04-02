@@ -7,5 +7,5 @@ import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ConfigRepository extends BaseRepository<Config> {
-    
+
 }
