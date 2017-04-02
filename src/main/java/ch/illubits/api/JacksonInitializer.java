@@ -14,6 +14,7 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 import static com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS;
 
@@ -27,7 +28,7 @@ public class JacksonInitializer implements ContextResolver<ObjectMapper> {
         module.addSerializer(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
             @Override
             public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-                jsonGenerator.writeNumber(localDateTime.atZone(ZoneId.systemDefault()).toEpochSecond());
+                jsonGenerator.writeNumber(localDateTime.atZone(ZoneOffset.UTC).toEpochSecond());
             }
         });
         mapper = new ObjectMapper()
