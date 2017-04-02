@@ -10,6 +10,6 @@ It fetches the hydrological data from [BAFU](http://www.hydrodaten.admin.ch/de),
 
 Features:
 * New implementation in "plain" Java EE 7 (was Grails before)
-* Dockerizied
+* Dockerized, pushed to docker hub
 * Maven build
 * Travis CI integration
