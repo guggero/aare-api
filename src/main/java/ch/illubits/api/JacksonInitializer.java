@@ -1,28 +1,37 @@
 package ch.illubits.api;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import static com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS;
-import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 @Provider
 public class JacksonInitializer implements ContextResolver<ObjectMapper> {
+
     private final ObjectMapper mapper;
 
     public JacksonInitializer() {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+            @Override
+            public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+                jsonGenerator.writeNumber(localDateTime.atZone(ZoneId.systemDefault()).toEpochSecond());
+            }
+        });
         mapper = new ObjectMapper()
-                .registerModule(new JSR310Module())
-                .registerModule(new Hibernate5Module())
-                .configure(WRITE_DATES_AS_TIMESTAMPS, false)
+                .registerModule(module)
                 .configure(FAIL_ON_EMPTY_BEANS, false);
     }
 

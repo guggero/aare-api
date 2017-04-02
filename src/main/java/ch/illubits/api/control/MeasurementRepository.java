@@ -17,4 +17,13 @@ public class MeasurementRepository extends BaseRepository<Measurement> {
                         .setParameter("measureTime", measureTime)
         );
     }
+
+    public Measurement findByStationAndUnitOrderByMeasureTime(Long stationId, Long unitId) {
+        return singleResult(
+                createNamedQuery("Measurement.findByStationAndUnitOrderByMeasureTime")
+                        .setParameter("stationId", stationId)
+                        .setParameter("unitId", unitId)
+                        .setMaxResults(1)
+        );
+    }
 }

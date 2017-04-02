@@ -2,16 +2,15 @@ package ch.illubits.api.control;
 
 import ch.illubits.api.entity.Measurement;
 import ch.illubits.api.entity.Station;
-import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.text.ParseException;
@@ -49,7 +48,8 @@ public class CollectorService {
     @Inject
     private MeasurementRepository measurementRepository;
 
-    @Schedule(hour = "*", minute = "*")
+    @PostConstruct
+    @Schedule(hour = "*", minute = "1,11,21,31,41,51")
     public void collect() throws Exception {
         String stationList = configRepository.find("station.include.list").getValue();
         List<Station> stations = stationRepository.getStations(asList(stationList.split(",")));

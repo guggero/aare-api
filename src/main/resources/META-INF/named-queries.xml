@@ -5,10 +5,15 @@
                  version="2.1">
 
     <named-query name="Station.findByStationNumbers">
-        <query>select s from Station s where s.number in (:stationNumbers)</query>
+        <query>SELECT s FROM Station s WHERE s.number IN (:stationNumbers)</query>
     </named-query>
 
     <named-query name="Measurement.findByStationAndUnitAndMeasureTime">
-        <query>select m from Measurement m where m.station.id = :stationId and m.unit.id = :unitId and m.measureTime = :measureTime</query>
+        <query>SELECT m FROM Measurement m WHERE m.station.id = :stationId AND m.unit.id = :unitId AND m.measureTime = :measureTime</query>
     </named-query>
+
+    <named-query name="Measurement.findByStationAndUnitOrderByMeasureTime">
+        <query>SELECT m FROM Measurement m WHERE m.station.id = :stationId AND m.unit.id = :unitId ORDER BY m.measureTime desc</query>
+    </named-query>
+
 </entity-mappings>
