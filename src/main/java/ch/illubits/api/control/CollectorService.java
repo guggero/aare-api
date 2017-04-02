@@ -30,9 +30,9 @@ public class CollectorService {
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     private static final Logger LOGGER = LoggerFactory.getLogger(CollectorService.class);
 
-    private static final String STORE_LAST_UPDATE = "UPDATE config SET value = NOW() WHERE id = 'measurement.last.update'";
-    private static final String MOVE_OLD_RECORDS = "INSERT INTO measurement_history SELECT * FROM measurement WHERE measure_time < :yesterday";
-    private static final String DELETE_OLD_RECORDS = "DELETE FROM measurement WHERE measure_time < :yesterday";
+    private static final String STORE_LAST_UPDATE = "UPDATE Config SET value = NOW() WHERE id = 'measurement.last.update'";
+    private static final String MOVE_OLD_RECORDS = "INSERT INTO MeasurementHistory SELECT * FROM Measurement WHERE measure_time < :yesterday";
+    private static final String DELETE_OLD_RECORDS = "DELETE FROM Measurement WHERE measure_time < :yesterday";
 
     private static final String XML_URL = "http://www.hydrodaten.admin.ch/lhg/SMS.xml";
 
