@@ -122,14 +122,6 @@ public class V1Resource {
         return measurementRepository.findByStationAndUnitOrderByMeasureTime(station.getId(), unit.getId());
     }
 
-    private static Float canHandleNull(boolean canHandleNull, Float inValue) {
-        if (canHandleNull || inValue != null) {
-            return inValue;
-        } else {
-            return 0.0f;
-        }
-    }
-
     private static LocalDateTime canHandleNull(boolean canHandleNull, LocalDateTime inValue) {
         if (canHandleNull || inValue != null) {
             return inValue;
