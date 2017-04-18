@@ -10,4 +10,6 @@ ADD docker/jdbc-driver/module.xml /wildfly/modules/com/mysql/main/
 ADD target/aare-server.war /wildfly/standalone/deployments/
 ADD docker/standalone.xml /wildfly/standalone/configuration/
 
+RUN echo "Europe/Zurich" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+
 CMD $STI_SCRIPTS_PATH/run
