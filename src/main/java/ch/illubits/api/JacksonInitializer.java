@@ -26,7 +26,7 @@ public class JacksonInitializer implements ContextResolver<ObjectMapper> {
         SimpleModule module = new SimpleModule();
         module.addSerializer(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
             @Override
-            public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {git
+            public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
                 jsonGenerator.writeNumber(localDateTime.atZone(ZoneId.systemDefault()).toEpochSecond());
             }
         });
