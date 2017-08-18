@@ -138,13 +138,16 @@ public class CollectorService {
 
         for (int i = 0; i < nodes.getLength(); ++i) {
             NamedNodeMap attributes = nodes.item(i).getAttributes();
-            if (attributes.getNamedItem(attributeName).getNodeValue().equals(attributeValue)) {
-                Node n = nodes.item(i).getChildNodes().item(0);
-                if (n != null) {
-                    return n.getNodeValue();
-                }
+            if (attributes != null && attributes.getNamedItem(attributeName) != null) {
+                Node namedItem = attributes.getNamedItem(attributeName);
+                if (namedItem != null && namedItem.getNodeValue().equals(attributeValue)) {
+                    Node n = nodes.item(i).getChildNodes().item(0);
+                    if (n != null) {
+                        return n.getNodeValue();
+                    }
 
-                return "NULL";
+                    return "NULL";
+                }
             }
         }
 
