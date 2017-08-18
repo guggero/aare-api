@@ -49,7 +49,6 @@ public class CollectorService {
     @Inject
     private MeasurementRepository measurementRepository;
 
-    @PostConstruct
     @Schedule(hour = "*", minute = "1,11,21,31,41,51")
     public void collect() {
         String stationList = configRepository.find("station.include.list").getValue();
