@@ -27,6 +27,11 @@
         <version.resteasy>3.0.19.Final</version.resteasy>
         <version.jbossws.native.core>4.2.1.Final</version.jbossws.native.core>
 
+        <version.mockito>1.10.19</version.mockito>
+        <version.hamcrest>1.3</version.hamcrest>
+        <version.junit>4.12</version.junit>
+        <version.el-impl>2.2</version.el-impl>
+
         <versionString>${project.artifactId}:${project.version}</versionString>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
@@ -85,6 +90,24 @@
             <artifactId>resteasy-jackson2-provider</artifactId>
             <version>${version.resteasy}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${version.mockito}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>${version.hamcrest}</version>
         </dependency>
     </dependencies>
 

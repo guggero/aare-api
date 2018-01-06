@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -111,8 +110,8 @@ public class CollectorService {
                 Measurement measurement = new Measurement();
                 measurement.setStation(station);
 
-                long stationId = Long.valueOf(attributes.getNamedItem("Typ").getNodeValue(), 10);
-                measurement.setUnit(unitRepository.getReference(stationId));
+                long unitId = Long.valueOf(attributes.getNamedItem("Typ").getNodeValue(), 10);
+                measurement.setUnit(unitRepository.getReference(unitId));
                 measurement.setMeasureTime(reformatDate(getNodeValue(node, "Datum") + " " + getNodeValue(node, "Zeit")));
                 measurement.setValue(getNodeValueFloat(node));
                 measurement.setValue24h(getNodeValueFloat(node, "dt", "-24h"));
@@ -155,10 +154,10 @@ public class CollectorService {
 
     private static Float getNodeValueFloat(Node node) {
         String value = getNodeValue(node, "Wert");
-        value = value.replaceAll("[' ,]", "");
         if (value == null || value.equalsIgnoreCase("null")) {
             return null;
         }
+        value = value.replaceAll("[' ,]", "");
         return Float.valueOf(value);
     }
 
@@ -167,6 +166,7 @@ public class CollectorService {
         if (value == null || value.equalsIgnoreCase("null")) {
             return null;
         }
+        value = value.replaceAll("[' ,]", "");
         return Float.valueOf(value);
     }
 
