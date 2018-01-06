@@ -155,6 +155,7 @@ public class CollectorService {
 
     private static Float getNodeValueFloat(Node node) {
         String value = getNodeValue(node, "Wert");
+        value = value.replaceAll("[' ,]", "");
         if (value == null || value.equalsIgnoreCase("null")) {
             return null;
         }
