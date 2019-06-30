@@ -34,7 +34,7 @@ public class CollectorService {
     private static final String MOVE_OLD_RECORDS = "INSERT INTO MeasurementHistory SELECT * FROM Measurement WHERE measure_time < :yesterday";
     private static final String DELETE_OLD_RECORDS = "DELETE FROM Measurement WHERE measure_time < :yesterday";
 
-    private static final String XML_URL = "http://www.hydrodaten.admin.ch/lhg/SMS.xml";
+    private static final String XML_URL = "https://www.hydrodaten.admin.ch/lhg/SMS.xml";
 
     @Inject
     private ConfigRepository configRepository;
