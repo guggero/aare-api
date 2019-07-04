@@ -1,22 +1,20 @@
-sudo: required
 language: java
 
-dist: trusty
-
 services:
- - docker
+  - docker
 
 cache:
   directories:
     - $HOME/.m2
 
-script: mvn clean package -B -V
+script: ./mvnw clean package -Pprod -B -V
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      cp src/main/docker/* target/;
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker build -t "guggero/aare-server:latest" .;
-      docker build -t "guggero/aare-server:$TRAVIS_BUILD_NUMBER" .;
-      docker push "guggero/aare-server:latest";
-      docker push "guggero/aare-server:$TRAVIS_BUILD_NUMBER";
+      docker build -t "guggero/aare-api:latest" target/;
+      docker build -t "guggero/aare-api:$TRAVIS_BUILD_NUMBER" target/;
+      docker push "guggero/aare-api:latest";
+      docker push "guggero/aare-api:$TRAVIS_BUILD_NUMBER";
     fi

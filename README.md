@@ -4,12 +4,12 @@
 
 ## Overview
 
-This is the new Java EE 7 implementation of the backend for the iOS app "Aare" which shows the temperature of the river Aare in Switzerland.
+This is the new Spring Boot implementation of the backend for the iOS app "Aare" which shows the temperature of the river Aare in Switzerland.
 
 It fetches the hydrological data from [BAFU](http://www.hydrodaten.admin.ch/de), caches it in an MySQL database and then composes it so the app can use it.
 
 Features:
-* New implementation in "plain" Java EE 7 (was Grails before)
-* Dockerized, pushed to docker hub
+* New implementation in Spring Boot 2 (was Java EE 7 before and Grails before that)
+* Dockerized, pushed to docker hub [guggero/aare-api](https://cloud.docker.com/repository/docker/guggero/aare-api)
 * Maven build
 * Travis CI integration
